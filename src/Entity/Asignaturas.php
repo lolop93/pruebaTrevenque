@@ -7,7 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 #[ORM\Entity(repositoryClass: AsignaturasRepository::class)]
+#[UniqueEntity('nombre')]
+#[UniqueConstraint(name: "nombre_titulacion", columns: ["nombre","titulacion"])]
 class Asignaturas
 {
     #[ORM\Id]
@@ -15,7 +20,7 @@ class Asignaturas
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique:true)]
     private $nombre;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -33,10 +38,14 @@ class Asignaturas
     #[ORM\ManyToMany(targetEntity: Alumnos::class, mappedBy: 'matricula')]
     private $alumnos;
 
+    #[ORM\OneToMany(mappedBy: 'asignatura', targetEntity: Calificaciones::class, orphanRemoval: true)]
+    private $calificaciones;
+
 
     public function __construct()
     {
         $this->alumnos = new ArrayCollection();
+        $this->calificaciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +135,36 @@ class Asignaturas
     {
         if ($this->alumnos->removeElement($alumno)) {
             $alumno->removeMatricula($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calificaciones>
+     */
+    public function getCalificaciones(): Collection
+    {
+        return $this->calificaciones;
+    }
+
+    public function addCalificacione(Calificaciones $calificacione): self
+    {
+        if (!$this->calificaciones->contains($calificacione)) {
+            $this->calificaciones[] = $calificacione;
+            $calificacione->setAsignatura($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalificacione(Calificaciones $calificacione): self
+    {
+        if ($this->calificaciones->removeElement($calificacione)) {
+            // set the owning side to null (unless already changed)
+            if ($calificacione->getAsignatura() === $this) {
+                $calificacione->setAsignatura(null);
+            }
         }
 
         return $this;

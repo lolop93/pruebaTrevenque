@@ -23,6 +23,10 @@ class Calificaciones
     #[ORM\JoinColumn(nullable: false)]
     private $alumno;
 
+    #[ORM\ManyToOne(targetEntity: Asignaturas::class, inversedBy: 'calificaciones')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $asignatura;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Calificaciones
     public function setAlumno(?Alumnos $alumno): self
     {
         $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    public function getAsignatura(): ?Asignaturas
+    {
+        return $this->asignatura;
+    }
+
+    public function setAsignatura(?Asignaturas $asignatura): self
+    {
+        $this->asignatura = $asignatura;
 
         return $this;
     }
