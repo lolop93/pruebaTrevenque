@@ -28,7 +28,10 @@
                     <td>{{ asignatura.curso ? asignatura.curso|date() : ""}}</td>
                     <td>{{ asignatura.maxalumnos ? asignatura.maxalumnos : ""}}</td>
                     <td>alumnos[ ]</td>
-                    <td>Editar | Eliminar</td>
+                    <td>
+                        <a class="btn btn btn-warning" href="{{ path('updateAsignatura',{'id':asignatura.id}) }}">Actualizar</a>
+                        <a class="btn btn btn-danger" href="{{ path('deleteAsignatura',{'id':asignatura.id}) }}">Eliminar</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

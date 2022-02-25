@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ dump() }}
+
+    <div class="container">
+        <div class="row">
+            {% for message in app.flashes('notices') %}
+                <div class=" alert alert-success">
+                    {{ message }}
+                </div>
+            {%  endfor %}
+            <div class="col-md-6 offset-md-3">
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.Titulacion) }}
+                    {{ form_widget(form.Titulacion,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.creditos) }}
+                    {{ form_widget(form.creditos,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.curso) }}
+                    {{ form_widget(form.curso,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.maxalumnos) }}
+                    {{ form_widget(form.maxalumnos,{'attr':{'class':'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-info mt-2 text-white">Actualizar</button>
+                </div>
+
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -42,4 +42,29 @@ class AsignaturasController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/asignaturas/update/{id}', name: 'updateAsignatura')]
+    public function update(Request $request, ManagerRegistry $doctrine,$id)
+    {
+        $asignatura = $doctrine->getManager()->getRepository(Asignaturas::class)->find($id);
+
+        $form = $this->createForm(AsignaturasFormType::class,$asignatura);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $doctrine->getManager();
+            $em->persist($asignatura);
+            $em->flush();
+            $this->addFlash('notices','Correctamente actualizada');
+        }
+        return $this->render('asignaturas/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/asignaturas/delete', name: 'deleteAsignatura')]
+    public function delete()
+    {
+
+    }
 }

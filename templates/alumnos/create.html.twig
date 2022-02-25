@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ dump() }}
+
+    <div class="container">
+        <div class="row">
+            {% for message in app.flashes('notices') %}
+                <div class=" alert alert-success">
+                    {{ message }}
+                </div>
+            {%  endfor %}
+            <div class="col-md-6 offset-md-3">
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.apellidos) }}
+                    {{ form_widget(form.apellidos,{'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.anionacimiento) }}
+                    {{ form_widget(form.anionacimiento,{'attr':{'class':'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-info mt-2 text-white">Submit</button>
+                </div>
+
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
