@@ -5,6 +5,11 @@
 {% block body %}
     {{ dump() }}
     <div class="container ">
+        {% for message in app.flashes('notice') %}
+            <div class=" alert alert-success">
+                {{ message }}
+            </div>
+        {%  endfor %}
         <table class="table">
             <thead>
             <tr>

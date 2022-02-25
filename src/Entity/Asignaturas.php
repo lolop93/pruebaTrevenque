@@ -47,6 +47,9 @@ class Asignaturas
         $this->alumnos = new ArrayCollection();
         $this->calificaciones = new ArrayCollection();
     }
+    public function __toString(){
+        return $this->id .' '.$this->nombre .' '.$this->Titulacion ;
+    }
 
     public function getId(): ?int
     {

@@ -37,6 +37,8 @@ class AsignaturasController extends AbstractController
             $em->persist($asignatura);
             $em->flush();
             $this->addFlash('notices','Correctamente insertada');
+
+            return $this->redirectToRoute('asignaturas');
         }
         return $this->render('asignaturas/create.html.twig', [
             'form' => $form->createView(),
@@ -56,15 +58,24 @@ class AsignaturasController extends AbstractController
             $em->persist($asignatura);
             $em->flush();
             $this->addFlash('notices','Correctamente actualizada');
+
+            return $this->redirectToRoute('asignaturas');
         }
         return $this->render('asignaturas/update.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/asignaturas/delete', name: 'deleteAsignatura')]
-    public function delete()
+    #[Route('/asignatura/delete/{id}', name: 'deleteAsignatura')]
+    public function delete($id,ManagerRegistry $doctrine)
     {
+        $asignatura = $doctrine->getManager()->getRepository(Asignaturas::class)->find($id);
+        $em = $doctrine->getManager();
+        $em->remove($asignatura);
+        $em->flush();
 
+        $this->addFlash('notice','Correctamente eliminado');
+
+        return $this->redirectToRoute('asignaturas');
     }
 }

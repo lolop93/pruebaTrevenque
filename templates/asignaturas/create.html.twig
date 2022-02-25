@@ -5,11 +5,6 @@
 
     <div class="container">
         <div class="row">
-            {% for message in app.flashes('notices') %}
-                <div class=" alert alert-success">
-                    {{ message }}
-                </div>
-            {%  endfor %}
             <div class="col-md-6 offset-md-3">
                 {{ form_start(form) }}
 

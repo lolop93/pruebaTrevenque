@@ -5,6 +5,11 @@
 {% block body %}
 {{ dump() }}
 <div class="container ">
+    {% for message in app.flashes('notice') %}
+        <div class=" alert alert-success">
+            {{ message }}
+        </div>
+    {%  endfor %}
     <table class="table">
         <thead>
             <tr>
@@ -24,8 +29,12 @@
                 <td>{{ alumno.nombre ? alumno.nombre : ""}}</td>
                 <td>{{ alumno.apellidos ? alumno.apellidos : ""}}</td>
                 <td>{{ alumno.anionacimiento ? alumno.anionacimiento|date() : ""}}</td>
-                <td></td>
-                <td></td>
+                <td>
+
+                </td>
+                <td>
+                    <a class="btn btn btn-info" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
+                </td>
                 <td>
                     <a class="btn btn btn-warning" href="{{ path('updateAlumno',{'id':alumno.id}) }}">Actualizar</a>
                     <a class="btn btn btn-danger" href="{{ path('deleteAlumno',{'id':alumno.id}) }}">Eliminar</a>

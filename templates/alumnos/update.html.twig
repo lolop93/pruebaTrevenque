@@ -5,7 +5,11 @@
 
     <div class="container">
         <div class="row">
-
+            {% for message in app.flashes('notices') %}
+                <div class=" alert alert-success">
+                    {{ message }}
+                </div>
+            {%  endfor %}
             <div class="col-md-6 offset-md-3">
                 {{ form_start(form) }}
 
@@ -23,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-info mt-2 text-white">Submit</button>
+                    <button class="btn btn-info mt-2 text-white">Actualizar</button>
                 </div>
 
 
