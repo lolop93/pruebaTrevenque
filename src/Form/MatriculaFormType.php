@@ -20,11 +20,16 @@ class MatriculaFormType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $choices = array();
         $asignaturas = $this->em->getRepository(Asignaturas::class)->findAll();
+
+        foreach ($asignaturas as $asignatura){
+            $choices[] = [$asignatura->getNombre() => $asignatura];
+        }
 
         $builder
             ->add('asignaturas',ChoiceType::class,[
-                'choices' => $asignaturas,
+                'choices' => $choices,
             ])
         ;
     }
