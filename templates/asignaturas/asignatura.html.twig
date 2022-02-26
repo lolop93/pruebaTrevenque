@@ -5,11 +5,6 @@
 {% block body %}
 
     <div class="container ">
-        {% for message in app.flashes('notice') %}
-            <div class=" alert alert-success">
-                {{ message }}
-            </div>
-        {%  endfor %}
         <table class="table">
             <thead>
             <tr>
@@ -20,11 +15,9 @@
                 <th scope="col">curso</th>
                 <th scope="col">Max. alumnos</th>
                 <th scope="col">alumnos</th>
-                <th scope="col">Opciones</th>
             </tr>
             </thead>
             <tbody>
-            {% for asignatura in asignaturas  %}
                 <tr>
                     <th scope="row">{{ asignatura.id ? asignatura.id : "" }}</th>
                     <td>{{ asignatura.nombre ? asignatura.nombre : ""}}</td>
@@ -37,12 +30,8 @@
                             <a href="{{ path('alumno',{'id':alumno.getId}) }}"><li>{{ alumno.getId ~ ' ' ~ alumno.getNombre ~ ' ' ~ alumno.getApellidos  }}</li></a>
                         {% endfor %}
                     </td>
-                    <td>
-                        <a class="btn btn btn-warning" href="{{ path('updateAsignatura',{'id':asignatura.id}) }}">Actualizar</a>
-                        <a class="btn btn btn-danger" href="{{ path('deleteAsignatura',{'id':asignatura.id}) }}">Eliminar</a>
-                    </td>
                 </tr>
-            {% endfor %}
+
             </tbody>
         </table>
     </div>

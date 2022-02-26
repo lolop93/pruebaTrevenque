@@ -19,8 +19,17 @@ class AsignaturasController extends AbstractController
         $asignaturas = $asignaturasRepository->findAll();
 
         return $this->render('asignaturas/index.html.twig', [
-            'controller_name' => 'AsignaturasController',
             'asignaturas' => $asignaturas,
+        ]);
+    }
+
+    #[Route('/asignaturas/{id}', name: 'asignatura')]
+    public function asignatura(ManagerRegistry $doctrine,$id): Response
+    {
+        $asignatura = $doctrine->getManager()->getRepository(Asignaturas::class)->find($id);
+
+        return $this->render('asignaturas/asignatura.html.twig', [
+            'asignatura' => $asignatura,
         ]);
     }
 

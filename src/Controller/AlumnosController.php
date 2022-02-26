@@ -26,6 +26,16 @@ class AlumnosController extends AbstractController
         ]);
     }
 
+    #[Route('/alumnos/{id}', name: 'alumno')]
+    public function alumno(ManagerRegistry $doctrine,$id): Response
+    {
+        $alumno = $doctrine->getManager()->getRepository(Alumnos::class)->find($id);
+
+        return $this->render('alumnos/alumno.html.twig', [
+            'alumno' => $alumno,
+        ]);
+    }
+
     #[Route('/alumnos/create', name: 'newAlumno')]
     public function create(Request $request, ManagerRegistry $doctrine)
     {
