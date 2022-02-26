@@ -33,7 +33,10 @@
 
                 </td>
                 <td>
-                    <a class="btn btn btn-info" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
+                    {% for asignatura in alumno.getMatricula %}
+                        <li>{{ asignatura.getNombre }}</li>
+                    {% endfor %}
+                    <a class="btn btn btn-info mt-1" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
                 </td>
                 <td>
                     <a class="btn btn btn-warning" href="{{ path('updateAlumno',{'id':alumno.id}) }}">Actualizar</a>

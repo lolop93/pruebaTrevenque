@@ -38,7 +38,7 @@ class AlumnosController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($alumno);
             $em->flush();
-            $this->addFlash('notices','Correctamente insertado');
+            $this->addFlash('notice','Correctamente insertado');
 
             return $this->redirectToRoute('alumnos');
         }
@@ -59,7 +59,7 @@ class AlumnosController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($alumno);
             $em->flush();
-            $this->addFlash('notices','Correctamente actualizado');
+            $this->addFlash('notice','Correctamente actualizado');
 
             return $this->redirectToRoute('alumnos');
         }
@@ -99,7 +99,7 @@ class AlumnosController extends AbstractController
             $alumno->addMatricula($matricula);
             $em->persist($alumno);
             $em->flush();
-            $this->addFlash('notices','Correctamente matriculado');
+            $this->addFlash('notice','Correctamente matriculado');
 
             return $this->redirectToRoute('alumnos');
         }

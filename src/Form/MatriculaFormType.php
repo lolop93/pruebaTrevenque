@@ -24,7 +24,10 @@ class MatriculaFormType extends AbstractType
         $asignaturas = $this->em->getRepository(Asignaturas::class)->findAll();
 
         foreach ($asignaturas as $asignatura){
-            $choices[] = [$asignatura->getNombre() => $asignatura];
+            $total_alumnos = count($asignatura->getAlumnos());
+            if(($asignatura->getMaxalumnos()-$total_alumnos)>=1){//contamos que el numero de alumnos matriculado no exceda el maximo permitido por asignatura
+                $choices[] = [$asignatura->getNombre() => $asignatura];
+            }
         }
 
         $builder

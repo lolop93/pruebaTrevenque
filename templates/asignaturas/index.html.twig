@@ -32,7 +32,11 @@
                     <td>{{ asignatura.creditos ? asignatura.creditos : ""}}</td>
                     <td>{{ asignatura.curso ? asignatura.curso|date() : ""}}</td>
                     <td>{{ asignatura.maxalumnos ? asignatura.maxalumnos : ""}}</td>
-                    <td>alumnos[ ]</td>
+                    <td>
+                        {% for alumno in asignatura.getAlumnos %}
+                            <li>{{ alumno.getId ~ ' ' ~ alumno.getNombre ~ ' ' ~ alumno.getApellidos  }}</li>
+                        {% endfor %}
+                    </td>
                     <td>
                         <a class="btn btn btn-warning" href="{{ path('updateAsignatura',{'id':asignatura.id}) }}">Actualizar</a>
                         <a class="btn btn btn-danger" href="{{ path('deleteAsignatura',{'id':asignatura.id}) }}">Eliminar</a>

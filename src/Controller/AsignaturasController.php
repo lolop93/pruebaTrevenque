@@ -36,7 +36,7 @@ class AsignaturasController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($asignatura);
             $em->flush();
-            $this->addFlash('notices','Correctamente insertada');
+            $this->addFlash('notice','Correctamente insertada');
 
             return $this->redirectToRoute('asignaturas');
         }
@@ -57,7 +57,7 @@ class AsignaturasController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($asignatura);
             $em->flush();
-            $this->addFlash('notices','Correctamente actualizada');
+            $this->addFlash('notice','Correctamente actualizada');
 
             return $this->redirectToRoute('asignaturas');
         }
