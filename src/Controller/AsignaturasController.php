@@ -23,15 +23,7 @@ class AsignaturasController extends AbstractController
         ]);
     }
 
-    #[Route('/asignaturas/{id}', name: 'asignatura')]
-    public function asignatura(ManagerRegistry $doctrine,$id): Response
-    {
-        $asignatura = $doctrine->getManager()->getRepository(Asignaturas::class)->find($id);
 
-        return $this->render('asignaturas/asignatura.html.twig', [
-            'asignatura' => $asignatura,
-        ]);
-    }
 
     #[Route('/asignaturas/create', name: 'newAsignatura')]
     public function create(Request $request, ManagerRegistry $doctrine)
@@ -86,5 +78,15 @@ class AsignaturasController extends AbstractController
         $this->addFlash('notice','Correctamente eliminado');
 
         return $this->redirectToRoute('asignaturas');
+    }
+
+    #[Route('/asignaturas/{id}', name: 'asignatura')]
+    public function asignatura(ManagerRegistry $doctrine,$id): Response
+    {
+        $asignatura = $doctrine->getManager()->getRepository(Asignaturas::class)->find($id);
+
+        return $this->render('asignaturas/asignatura.html.twig', [
+            'asignatura' => $asignatura,
+        ]);
     }
 }
