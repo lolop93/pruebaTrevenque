@@ -39,7 +39,7 @@
                 </td>
                 <td>
                     {% for asignatura in alumno.getMatricula %}
-                        <a href="{{ path('asignatura',{'id':asignatura.getId}) }}"><li>{{ asignatura.getId ~ ' ' ~ asignatura.getNombre ~ ' - Titulacion: ' ~ asignatura.getTitulacion  }}</li></a>
+                        <a href="{{ path('asignatura',{'id':asignatura.getId}) }}"><li>{{ asignatura.getId ~ '.  ' ~ asignatura.getNombre ~ ' - Titulacion: ' ~ asignatura.getTitulacion  }}</li></a>
                     {% endfor %}
                     <a class="btn btn btn-info mt-1" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
                 </td>
