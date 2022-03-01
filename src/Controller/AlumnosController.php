@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Alumnos;
 use App\Entity\Asignaturas;
+use App\Entity\Calificaciones;
 use App\Form\AlumnosFormType;
 use App\Form\MatriculaFormType;
+use App\Form\CalificacionesFormType;
 use App\Repository\AlumnosRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -107,6 +109,46 @@ class AlumnosController extends AbstractController
         return $this->render('alumnos/matricular.html.twig', [
             'form' => $form->createView(),
             'asignaturas' => $asignaturas,
+        ]);
+    }
+
+    #[Route('/alumnos/calificar/{id}', name: 'addCalificacion')]
+    public function calificar(Request $request,$id,ManagerRegistry $doctrine)
+    {
+
+        $calificacion = new Calificaciones();
+        $alumno = $doctrine->getManager()->getRepository(Alumnos::class)->find($id);
+        $asignaturas = $alumno->getMatricula();
+
+
+        $form = $this->createForm(CalificacionesFormType::class,$calificacion, [
+            'asignaturas' => $asignaturas,
+        ]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+
+            /*$primeraConvocatoria = $doctrine->getManager()->getRepository(Calificaciones::class)->find($data['primeraConvocatoria']);
+            $segundaConvocatoria = $doctrine->getManager()->getRepository(Calificaciones::class)->find($data['segundaConvocatoria']);
+            $asignatura = $doctrine->getManager()->getRepository(Calificaciones::class)->find($data['asignatura']);*/
+
+            /*$calificacion->setPrimeraConvocatoria($primeraConvocatoria);//asignamos a la calificacion cada uno de los campos
+            $calificacion->setSegundaConvocatoria($segundaConvocatoria);*/
+            $calificacion->setAlumno($alumno);
+            //$calificacion->setAsignatura($asignatura);
+
+            $em = $doctrine->getManager();
+            $em->persist($calificacion);
+            $em->flush();
+            $this->addFlash('notice','Correctamente calificado');
+
+            return $this->redirectToRoute('alumnos');
+        }
+        return $this->render('alumnos/calificar.html.twig', [
+            'form' => $form->createView(),
+            'asignaturas' => $asignaturas,
+            'alumno' => $alumno,
         ]);
     }
 
