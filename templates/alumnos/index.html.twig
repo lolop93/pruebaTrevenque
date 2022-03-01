@@ -31,7 +31,7 @@
                 <td>{{ alumno.anionacimiento ? alumno.anionacimiento|date() : ""}}</td>
                 <td>
                     {% for calificacion in alumno.getCalificaciones %}
-                        <li>{{ calificacion.getId ~ ' 1ª Conv.' ~ calificacion.getPrimeraConvocatoria ~ ' - 2ª Conv.: ' ~ calificacion.getSegundaConvocatoria  }}</li>
+                        <li>{{ calificacion.getId ~ '.  1ª Conv.' ~ calificacion.getPrimeraConvocatoria ~ ' - 2ª Conv.: ' ~ calificacion.getSegundaConvocatoria  }}</li>
                     {% endfor %}
                     {%  if  alumno.getMatricula is not empty%}
                         <a class="btn btn btn-info mt-1" href="{{ path('addCalificacion',{'id':alumno.id}) }}">Calificar</a>
