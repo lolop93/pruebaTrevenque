@@ -33,7 +33,7 @@
                     {% for calificacion in alumno.getCalificaciones %}
                         <a href="{{ path('addCalificacion',{'id':calificacion.getId}) }}"><li>{{ calificacion.getId ~ ' 1ª Conv.' ~ calificacion.getPrimeraConvocatoria ~ ' - 2ª Conv.: ' ~ calificacion.getSegundaConvocatoria  }}</li></a>
                     {% endfor %}
-                    {%  if  alumno.getMatricula %}
+                    {%  if  alumno.getMatricula is not empty%}
                         <a class="btn btn btn-info mt-1" href="{{ path('addCalificacion',{'id':alumno.id}) }}">Calificar</a>
                     {% endif %}
                 </td>
