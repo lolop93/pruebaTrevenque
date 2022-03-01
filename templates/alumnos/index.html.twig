@@ -33,15 +33,15 @@
                     {% for calificacion in alumno.getCalificaciones %}
                         <a href="{{ path('addCalificacion',{'id':calificacion.getId}) }}"><li>{{ calificacion.getId ~ ' 1ª Conv.' ~ calificacion.getPrimeraConvocatoria ~ ' - 2ª Conv.: ' ~ calificacion.getSegundaConvocatoria  }}</li></a>
                     {% endfor %}
-                    <a class="btn btn btn-info mt-1" href="{{ path('addCalificacion',{'id':alumno.id}) }}">Calificar</a>
+                    {%  if  alumno.getMatricula %}
+                        <a class="btn btn btn-info mt-1" href="{{ path('addCalificacion',{'id':alumno.id}) }}">Calificar</a>
+                    {% endif %}
                 </td>
                 <td>
                     {% for asignatura in alumno.getMatricula %}
                         <a href="{{ path('asignatura',{'id':asignatura.getId}) }}"><li>{{ asignatura.getId ~ ' ' ~ asignatura.getNombre ~ ' - Titulacion: ' ~ asignatura.getTitulacion  }}</li></a>
                     {% endfor %}
-                    {%  if  alumno.getMatricula %}
-                        <a class="btn btn btn-info mt-1" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
-                    {% endif %}
+                    <a class="btn btn btn-info mt-1" href="{{ path('addMatricula',{'id':alumno.id}) }}">Matricular</a>
                 </td>
                 <td>
                     <a class="btn btn btn-warning" href="{{ path('updateAlumno',{'id':alumno.id}) }}">Actualizar</a>
